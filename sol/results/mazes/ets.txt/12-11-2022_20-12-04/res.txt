@@ -1,0 +1,4 @@
+388.1
+13112111311102323100120333022123220202222030203333130333133111212210223333333030222220033233233312112131222230030311102221222220030203031113030021120031130331313033311122302200002202021111213330032210
+{'num_generations': 10, 'population_size': 200, 'crossover_func': 'custom', 'mutation_func': 'custom', 'mutation_probability': 0.05, 'population_parents_percent': 0.2, 'population_keep_elite_percent': 0.01, 'population_func': <function make_valid_population at 0x128f25d30>, 'fitness_func': <function fitness_func at 0x128f25e50>, 'simulate_population': False, 'crossover_type': 'min_max', 'show_progress': True, 'smart': True, 'plot': True, 'save_to_file': True, 'maze_file': 'mazes/ets.txt', 'parent_selection_type': 'sus', 'seed': 100}
+[363.7, 381.9, 381.9, 383.9, 383.9, 384.0, 386.1, 386.1, 386.1, 388.1, 388.1]

@@ -1,0 +1,4 @@
+432.1
+033000002000222220122333223013333310133232322323210332323232232013232332232023102223332323101022222223232330133333231333222333223323222112323323102222022332222103232103332221133323233032123223222323233332231123232301233322332
+{'num_generations': 10, 'population_size': 200, 'crossover_func': 'custom', 'mutation_func': 'custom', 'mutation_probability': 0.05, 'population_parents_percent': 0.2, 'population_keep_elite_percent': 0.01, 'population_func': <function make_valid_population at 0x1366ded30>, 'fitness_func': <function fitness_func at 0x1366dee50>, 'simulate_population': False, 'crossover_type': 'min_max', 'show_progress': True, 'smart': True, 'plot': True, 'save_to_file': True, 'maze_file': 'mazes/maze_5.txt', 'parent_selection_type': 'sus', 'seed': 100}
+[313.9, 405.2, 405.2, 405.2, 421.3, 432.1, 432.1, 432.1, 432.1, 432.1, 432.1]

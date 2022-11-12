@@ -1,0 +1,4 @@
+164.1
+3333333112222222113333333112222222110101003332333322232222333333322222221101010101010011001101010033
+{'num_generations': 20, 'population_size': 200, 'crossover_func': 'custom', 'mutation_func': 'custom', 'mutation_probability': 0.05, 'population_parents_percent': 0.2, 'population_keep_elite_percent': 0.01, 'population_func': <function make_valid_population at 0x13490ed30>, 'fitness_func': <function fitness_func at 0x13490ee50>, 'simulate_population': False, 'crossover_type': 'min_max', 'show_progress': True, 'smart': True, 'plot': True, 'save_to_file': True, 'maze_file': 'mazes/maze_treasure_3.txt', 'parent_selection_type': 'sus', 'seed': 100}
+[-69.55, 164.1, 164.1, 164.1, 164.1, 164.1, 164.1, 164.1, 164.1, 164.1, 164.1, 164.1, 164.1, 164.1, 164.1, 164.1, 164.1, 164.1, 164.1, 164.1, 164.1]
