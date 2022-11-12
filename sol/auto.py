@@ -1,14 +1,58 @@
-from is2 import start_ga,read_maze,maze_dict,make_move
+
 from concurrent.futures.thread import *
 from threading import Lock
 from random import randint
 import pygame
 from concurrent.futures import as_completed
 
+import Solve as Solve
+
 #import ascompleted
 
 
 lock = Lock()
+
+maze_dict = {
+    "#": 0,
+    ".": 1,
+    "S": 2,
+    "E": 3,
+    "T": 4,
+}
+
+
+def make_move(move_direction, current_pos,maze):
+    #we move in the maze and check if move is valid
+    #if move is valid we return new position and valid flag
+    #if move is not valid we return current position and invalid flag
+    new_pos = current_pos
+
+    if move_direction == 0:
+        #up
+        new_pos = (current_pos[0] - 1, current_pos[1])
+    elif move_direction == 1:
+        #down
+        new_pos = (current_pos[0] + 1, current_pos[1])
+
+    elif move_direction == 2:
+        #left
+        new_pos = (current_pos[0], current_pos[1] - 1)
+
+    elif move_direction == 3:
+        #right
+        new_pos = (current_pos[0], current_pos[1] + 1)
+
+    #check if move is valid
+    if new_pos[0] < 0 or new_pos[0] >= maze.shape[0] or new_pos[1] < 0 or new_pos[1] >= maze.shape[1]:
+        #move is not valid because we are out of maze
+        return current_pos, False
+
+    if maze[new_pos[0], new_pos[1]] == maze_dict["#"]:
+        #move is not valid because we hit a wall
+        return current_pos, False
+
+    #move is valid
+    return new_pos, True
 
 def simulate_chromosomes(maze,maze_start,maze_end,chromosomes, title="",auto=True,draw=False,custom_colors=[],crossover_data=None):
     #use pygame to simulate chromosome is a numpy array of moves
@@ -118,7 +162,7 @@ def simulate_chromosomes(maze,maze_start,maze_end,chromosomes, title="",auto=Tru
                     auto = False
                     
                     for i in range(len(current_positions)):
-                        current_positions[i], _ = make_move(chromosomes[i][step], current_positions[i])
+                        current_positions[i], _ = make_move(chromosomes[i][step], current_positions[i], maze)
                     step += 1
 
                 #q is pressed we will quit
@@ -139,7 +183,7 @@ def simulate_chromosomes(maze,maze_start,maze_end,chromosomes, title="",auto=Tru
         if auto and not game_finished:
             #make move
             for i in range(len(current_positions)):
-                current_positions[i], _ = make_move(chromosomes[i][step], current_positions[i])
+                current_positions[i], _ = make_move(chromosomes[i][step], current_positions[i], maze)
             step += 1
 
             #delay
@@ -183,12 +227,7 @@ def doit(filename):
 
     print("Starting",filename)
 
-    maze,maze_start,maze_end=read_maze(filename)
-
-    #set random seed
-    #seed(1)
-    crossover_type = ""
-
+   
     #set some default pygad parameters
     params = {
         "num_generations": 200,
@@ -209,11 +248,15 @@ def doit(filename):
         }
 
     
+    #crate a Solver new solver object instance
+    solver = Solve.Solve(filename,params)
+    
+    
 
-    solution, solution_fitness, solution_idx = start_ga(params)
-    print("solution: ", solution)
-    print("solution_fitness: ", solution_fitness)
-    print("solution_idx: ", solution_idx)
+    filename, maze,maze_start,maze_end,solution, solution_fitness, solution_idx = solver.run()
+    print("solution: ",filename, solution)
+    print("solution_fitness: ",filename, solution_fitness)
+    print("solution_idx: ",filename,solution_idx)
 
 
     return filename,maze,maze_start,maze_end,solution
@@ -234,27 +277,22 @@ if __name__ == '__main__':
     files = os.listdir("mazes")
 
     #only get one
-    files = ["maze_5.txt"]
+    files = ["mazes/maze_5.txt"]
 
 
-    with ThreadPoolExecutor(max_workers=5) as executor:
-        #get all files in mazes folder
-       
-            #start a thread for each maze and make that thread run doit function 
+    #use ThreadPoolExecutor to run multiple mazes at the same time and get results
 
-    
-
-
+    with ThreadPoolExecutor() as executor:
+        results = executor.map(doit, files)
+        #wait for all results
+        results = list(results)
 
         
-        future_to_task={executor.submit(doit, "mazes/"+file): file for file in files}
-        
 
 
-        for future in as_completed(future_to_task):
-            name,maze,maze_start,maze_end,solution = future.result()
-            #simulate best chromosome
-            simulate_chromosomes(maze,maze_start,maze_end,[solution],title=name)
+
+
+
 
        
             
