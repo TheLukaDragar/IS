@@ -870,13 +870,15 @@ def start_ga(params):
 
     # plot fitness with pygad
 
+    plt.plot(ga_instance.best_solutions_fitness)
+    plt.xlabel("Generation")
+    plt.ylabel("Fitness")
+    plt.title(params["maze_file"], fontsize=14)
+
     if True == params["plot"]:
 
         # plot fitness
-        plt.plot(ga_instance.best_solutions_fitness)
-        plt.xlabel("Generation")
-        plt.ylabel("Fitness")
-        plt.title(params["maze_file"], fontsize=14)
+       
 
         # add sub
 
@@ -890,9 +892,6 @@ def start_ga(params):
         #save to /results/filename/timestamp
         dir = "results/"+params["maze_file"]+"/"+timestamp
         os.makedirs(dir)
-
-            
-
 
         #save plot to file
         plt.savefig(dir+"/plot.png")
@@ -1117,7 +1116,7 @@ if __name__ == "__main__":
 
     # set some default pygad parameters
     params = {
-        "num_generations": 2000,
+        "num_generations": 20,
         "population_size": 200,
         "crossover_func": "custom",
         "mutation_func":  "custom",
@@ -1132,7 +1131,7 @@ if __name__ == "__main__":
         "crossover_type": "min_max",
         "show_progress": True,
         "smart": True,
-        "plot": True,
+        "plot": False,
         "save_to_file": True,
         "maze_file": filename,
         "parent_selection_type": "sus",
@@ -1149,4 +1148,4 @@ if __name__ == "__main__":
 
     # simulate best chromosome
 
-    simulate_chromosomes([solution], draw=True)
+    #simulate_chromosomes([solution], draw=True)
