@@ -1,4 +1,0 @@
-83.9
-2222103003330011230122010101010123013223010101010
-{'num_generations': 10, 'population_size': 200, 'crossover_func': 'custom', 'mutation_func': 'custom', 'mutation_probability': 0.05, 'population_parents_percent': 0.2, 'population_keep_elite_percent': 0.01, 'population_func': <function make_valid_population at 0x117f77d30>, 'fitness_func': <function fitness_func at 0x117f77e50>, 'simulate_population': False, 'crossover_type': 'min_max', 'show_progress': True, 'smart': True, 'plot': True, 'save_to_file': True, 'maze_file': 'mazes/maze_treasure.txt', 'parent_selection_type': 'sus', 'seed': 100}
-[64.2, 79.6, 79.6, 81.7, 83.9, 83.9, 83.9, 83.9, 83.9, 83.9, 83.9]

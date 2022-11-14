@@ -1,23 +1,26 @@
-from concurrent.futures import ThreadPoolExecutor
-import test2 as t2
-
-import test3 as t3
-import matplotlib.pyplot as plt
-
-from random import seed,randint
-
-import numpy as np
+import base64
 import itertools
-
-from is4 import IS4
-from numpy import arange
-import pygame as pygame
-
 import os
-
 import sys
+from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime
+from random import randint, seed
+import threading
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pygame as pygame
+from numpy import arange
+
+import test2 as t2
+import test3 as t3
+from is4 import IS4
+import tqdm as tqdm
 
 filename="xx"
+
+lock = threading.Lock()
+pbar = tqdm.tqdm(total=1)
 
 maze_dict = {
             "#": 0,
@@ -43,7 +46,7 @@ def do2(combination):
     is4=IS4()
     is4.read_maze("mazes/"+filename)
     params = {
-        "num_generations": 100,
+        "num_generations": 800,
         "population_size": population_size,
         "crossover_func": "custom",
         "mutation_func":  "custom",
@@ -68,13 +71,22 @@ def do2(combination):
     maze, maze_start, maze_end, solution, solution_fitness, solution_idx,best_list = is4.start_ga(params)
     print(filename+" done!")
     print("best fitness",solution_fitness)
-    print("best solution",solution)
-    print("best solution index",solution_idx)
+    #print("best solution",solution)
+    #print("best solution index",solution_idx)
     #get the max value index of the list from left to right
     max_index = best_list.index(max(best_list))
     print("needed generations for best",max_index,"/",params["num_generations"])
 
     print("----------------------------------------")
+
+    #lock
+    lock.acquire()
+
+    #update pbar 
+    pbar.update(1)
+
+    #unlock
+    lock.release()
 
 
     return filename,best_list,solution,solution_fitness,solution_idx,max_index,params,maze,maze_start
@@ -323,10 +335,10 @@ def main(filenameee):
 
     parameters = {
 
-        "population_size": list(range(25, 251, 25)),
+        "population_size": list(range(25, 251, 50)),
         
-        "population_parents_percent": arange(0.02, 0.53, 0.05),
-        "mutation_probability": arange(0.05, 0.51, 0.05),
+        "population_parents_percent": arange(0.02, 0.20, 0.10),
+        "mutation_probability": arange(0.05, 0.20, 0.05),
 
         "population_func" : ["invalid","valid","valid_smart"],
         "crossover_type":[ "min_max","longest_path_mix","rand_rand"],
@@ -336,33 +348,66 @@ def main(filenameee):
 
     }
 
-    combinations = list(itertools.product(*parameters.values()))[:2]
+    combinations = list(itertools.product(*parameters.values()))
     combinations_len = len(combinations)
 
+    print("Number of combinations:", combinations_len)
 
+
+    #use tqdm to show progress bar
+    
+    #inicialize progress bar
+    global pbar
+    pbar = tqdm.tqdm(total=combinations_len)
+    #show progress bar
+    pbar.update(0)
 
     
 
     with ThreadPoolExecutor(max_workers=32) as executor:
         results = executor.map(do2, combinations)
+        
+
+
         #wait for all results
 
         #check  for results
-        for result in results:
+        for i,result in enumerate(results):
 
             #plot the results
-            filename,best_list,solution,solution_fitness,solution_idx,max_index,params,maze,maze_start = result
+            _filename,best_list,solution,solution_fitness,solution_idx,max_index,params,maze,maze_start = result
+
+
+            #reset the plot
+            plt.clf()
 
             plt.plot(best_list, label=filename)
             plt.legend()
             #plt.show(block=True)
 
             #make dir
-            from datetime import datetime
-            timestamp = datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
+            
+            #timestamp = datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
             #save to /results/filename/timestamp
-            dir = "results/"+params["maze_file"]+"/"+timestamp
-            os.makedirs(dir)
+
+            #generate  unique filename
+    
+            
+            _filename = str(i)
+            _filename = _filename + "_" + str(int(solution_fitness))
+            #txt
+            filename_txt = _filename + ".txt"
+
+            
+            
+
+            dir = "results/mazes/"+params["maze_file"]+"/" + _filename
+            #check if dir exists
+            if not os.path.exists(dir):
+                os.makedirs(dir)
+
+        
+            
 
             #save plot to file
             plt.savefig(dir+"/plot.png")
@@ -375,22 +420,16 @@ def main(filenameee):
             
             with open(dir+"/res.txt", "w") as myfile:
                 myfile.write(str(solution_fitness) + "\n")
+                myfile.write(str(max_index) + "\n") #genrations required
                 myfile.write(str("".join(solution.astype(str))) + "\n")
                 myfile.write(str(params) + "\n")
                 # save best solution fitness
-                myfile.write(str(best_solutions_fitness) + "\n")
-
-
-
-
-
+                myfile.write(str(best_list) + "\n")
 
             #simulator
-            simulate_chromosomes(maze,maze_start,[solution], draw=True, auto_stop=False, crossover_data=None)
+            #simulate_chromosomes(maze,maze_start,[solution], draw=True, auto_stop=False, crossover_data=None)
 
 
-
-        results = list(results)
 
 
 
@@ -422,6 +461,13 @@ if __name__ == '__main__':
     #]
 
     #get only 2
+
+
+
+    #2160 combinations
+    #if i use 20 workers that 2160/20 = 108 combinations per worker
+    #each worker will take combinations[i*108:(i+1)*108] combinations
+    
     
 
     

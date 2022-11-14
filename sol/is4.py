@@ -66,7 +66,7 @@ class IS4:
             # convert maze to numpy array
             self.maze = np.array(self.maze)
 
-        #return maze, maze_start, maze_end
+        return self.maze, self.maze_start, self.maze_end
 
 
     def mutate_one_chromosome(self,chromosome, ga_instance):
@@ -767,7 +767,7 @@ class IS4:
         # get pid
         pid = os.getpid()
 
-        print("Starting GA a!", pid, params["maze_file"])
+        #print("Starting GA a!", pid, params["maze_file"])
         # generate initial population
 
 
@@ -786,7 +786,7 @@ class IS4:
         elif params["population_func"] == "valid_smart":
             population = self.make_valid_population(params["population_size"],smart=True)
 
-        print("Initial population generated !", params["maze_file"])
+        #print("Initial population generated !", params["maze_file"])
 
         # simulate chromosomes
         if params["simulate_population"]:
@@ -853,7 +853,8 @@ class IS4:
                             mutation_probability=params["mutation_probability"],
                             save_best_solutions=True,
                             on_parents=self.on_parents(),
-                            random_seed=seddd
+                            random_seed=seddd,
+                             suppress_warnings=True,
 
 
 

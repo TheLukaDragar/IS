@@ -1,4 +1,0 @@
-327.8
-202310223310301210311122023222113322023230333133310332332223210232230100230002220030022221133322200333313330002222201223233013333313333113232000323232122323322232210013333231132323200032321032103232101010321222332330101231011
-{'num_generations': 10, 'population_size': 200, 'crossover_func': 'custom', 'mutation_func': 'custom', 'mutation_probability': 0.05, 'population_parents_percent': 0.2, 'population_keep_elite_percent': 0.01, 'population_func': <function make_valid_population at 0x1171cdd30>, 'fitness_func': <function fitness_func at 0x1171cde50>, 'simulate_population': False, 'crossover_type': 'min_max', 'show_progress': True, 'smart': True, 'plot': True, 'save_to_file': True, 'maze_file': 'mazes/maze_treasure_5.txt', 'parent_selection_type': 'sus', 'seed': 100}
-[27.43, 238.2, 238.2, 323.9, 323.9, 323.9, 323.9, 327.8, 327.8, 327.8, 327.8]
