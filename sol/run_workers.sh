@@ -30,7 +30,7 @@ i=0
 #go trough all int from 0 to including 20
 
 #define string
-filename="maze_treasure_4.txt"
+filename="maze_treasure_7.txt"
 
 while [ $i -le 19 ]
 do
