@@ -113,7 +113,7 @@ def main(filename):
 
     #for each file, read the results and store them in a list
 
-    dirs= os.listdir("results/mazes/"+filename)
+    dirs= os.listdir("results_0/mazes/"+filename)
     #remove .DS_Store
     dirs.remove('.DS_Store')
 
@@ -121,8 +121,8 @@ def main(filename):
     results = []
 
     for dir in dirs:
-        print(dir)
-        with open("results/mazes/"+filename+"/"+dir+"/res.txt") as f:
+        #print(dir)
+        with open("results_0/mazes/"+filename+"/"+dir+"/res.txt") as f:
 
             
             h={
@@ -161,20 +161,9 @@ def main(filename):
 
     #plot all the parameters
 
-    #we want to make every fitness non negative
     #so we can plot it
 
-    minnn=min([x["fitness"] for x in results]) 
-    print("minnn: ",min([x["fitness"] for x in results]))
-    if minnn<0:
-        for res in results:
-            res["fitness"]+=abs(minnn)
 
-
-    for parameter in parameters:
-        plotparameter(parameter,parameters[parameter],results,y="fitness")
-
-    exit()
 
 
     
@@ -228,39 +217,19 @@ def main(filename):
     #first lets test population size
     #we want to test the following population sizes: 10,20,30,40,50,60,70,80,90,100
     
-    
+    minnn=min([x["fitness"] for x in results]) 
+    print("minnn: ",min([x["fitness"] for x in results]))
+    if minnn<0:
+        for res in results:
+            res["fitness"]+=abs(minnn)
+
+
+    for parameter in parameters:
+        plotparameter(parameter,parameters[parameter],results,y="fitness")
+
 
     #loop through all the population sizes and combinations
-    fig = plt.figure()
-    for population_size in population_sizes:
-
-        avg_fitness = 0
-        variance = 0
-        for combination in results:
-            if combination["params"]["population_size"]==population_size:
-                avg_fitness+=combination["fitness"]
-                variance+=combination["fitness"]**2
-
-        avg_fitness/=len(results)
-        variance/=len(results)
-        variance-=avg_fitness**2
-
-        print("population size: ",population_size)
-        print("avg fitness: ",avg_fitness)
-        print("variance: ",variance)
-
-        #plot the results for this population sizes
-        #figure
-       
-
-        #add average fitness and variance to boxplot at x=population_size
-        plt.boxplot([avg_fitness,variance],positions=[population_size],widths=10)
-        #make it wide 
-
-
-    #show the plot
-    plt.show()
-
+   
 
                
 

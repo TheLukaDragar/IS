@@ -1105,7 +1105,13 @@ if __name__ == "__main__":
 
     # get params of main
 
-    filename = sys.argv[1]
+    #check if args
+    filename = "mazes/maze_treasure_7.txt"
+
+    if len(sys.argv)>1:
+
+        filename = sys.argv[1]
+
 
     # set random seed
 
@@ -1116,7 +1122,7 @@ if __name__ == "__main__":
 
     # set some default pygad parameters
     params = {
-        "num_generations": 20,
+        "num_generations": 500,
         "population_size": 200,
         "crossover_func": "custom",
         "mutation_func":  "custom",

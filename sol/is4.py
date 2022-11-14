@@ -962,7 +962,7 @@ if __name__ == "__main__":
 
 
     #check if args are passed
-    filename = "mazes/maze_1.txt"
+    filename = "mazes/maze_treasure_7.txt"
     if len(sys.argv) > 1:
         
 
@@ -974,6 +974,7 @@ if __name__ == "__main__":
 
     #create instance of class
     solver = IS4()
+    
 
 
     # set random seed
@@ -985,7 +986,7 @@ if __name__ == "__main__":
 
     # set some default pygad parameters
     params = {
-        "num_generations": 500,
+        "num_generations": 1000,
         "population_size": 200,
         "crossover_func": "custom",
         "mutation_func":  "custom",
@@ -999,14 +1000,18 @@ if __name__ == "__main__":
         "crossover_type": "min_max",
         "show_progress": True,
         "smart": True, #if mutation is smart 
-        "show_plot": False,
-        "self_save_to_file": True,
+        "show_plot": True,
+        "self_save_to_file": False,
         "maze_file": filename,
         "parent_selection_type": "sus",
         "seed": 100,
 
 
     }
+
+    solver.read_maze(params["maze_file"])
+
+    
 
     maze, maze_start, maze_end, solution, solution_fitness, solution_idx,best_list = solver.start_ga(
         params)

@@ -32,9 +32,9 @@ for file in $(ls mazes | grep -v hard | grep tr | grep 4); do
     #/Users/carbs/miniforge3/envs/pytorch_m1/bin/python /Users/carbs/Desktop/IS/sol/test.py
 
     #create deamons and run the python script and redirect the output to dev/null 
-    #/Users/carbs/miniforge3/envs/pytorch_m1/bin/python /Users/carbs/Desktop/IS/sol/is3.py mazes/$file &
+    /Users/carbs/miniforge3/envs/pytorch_m1/bin/python /Users/carbs/Desktop/IS/sol/is4.py mazes/$file &
     #/Users/carbs/miniforge3/envs/ai/bin/python /Users/carbs/Desktop/IS/sol/is3.py mazes/$file &
-    /Users/carbs/miniforge3/envs/ai/bin/python /Users/carbs/Desktop/IS/sol/test.py $file &
+    #/Users/carbs/miniforge3/envs/ai/bin/python /Users/carbs/Desktop/IS/sol/test.py $file &
 
     child=$!
     echo "Spawned deamon with PID $child"
