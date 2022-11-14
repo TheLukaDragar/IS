@@ -48,7 +48,7 @@ def do2(combination):
     is4=IS4()
     is4.read_maze("mazes/"+filename)
     params = {
-        "num_generations": 800,
+        "num_generations": 3000,
         "population_size": population_size,
         "crossover_func": "custom",
         "mutation_func":  "custom",
@@ -66,7 +66,7 @@ def do2(combination):
         "self_save_to_file": False,
         "maze_file": filename,
         "parent_selection_type": parent_selection_type,
-        "seed": 100,
+        "seed": 169,
     }
 
     #print(filename+" starting"+str(worker_id))
@@ -335,17 +335,32 @@ def main(filenameee,worker_i):
 
     filename=filenameee
 
+    # parameters0 = {
+
+    #     "population_size": list(range(25, 251, 50)),
+        
+    #     "population_parents_percent": arange(0.02, 0.20, 0.10),
+    #     "mutation_probability": arange(0.05, 0.20, 0.05),
+
+    #     "population_func" : ["invalid","valid","valid_smart"],
+    #     "crossover_type":[ "min_max","longest_path_mix","rand_rand"],
+    #     "smart": [True, False], #smart crossover
+    #     "parent_selection_type": ["sus","rws","random"],
+
+
+    # }
+
     parameters = {
 
-        "population_size": list(range(25, 251, 50)),
+        "population_size": [200, 300, 400, 500, 600, 700],
         
-        "population_parents_percent": arange(0.02, 0.20, 0.10),
-        "mutation_probability": arange(0.05, 0.20, 0.05),
+        "population_parents_percent": [0.10,0.20,0.30],
+        "mutation_probability": [0.05],
 
         "population_func" : ["invalid","valid","valid_smart"],
-        "crossover_type":[ "min_max","longest_path_mix","rand_rand"],
+        "crossover_type":[ "min_max","rand_rand"],
         "smart": [True, False], #smart crossover
-        "parent_selection_type": ["sus","rws","random"],
+        "parent_selection_type": ["sus"],
 
 
     }
@@ -356,15 +371,18 @@ def main(filenameee,worker_i):
     #this worker does combinations from 108*worker_i to worker_i+1 *108
     #2160 combinations
 
-    combinations=combinations[108*worker_i:108*(worker_i+1)]
-    combinations_len = len(combinations)
+    #combinations=combinations[108*worker_i:108*(worker_i+1)]
 
-    #20/5=4
-    #0-4
-    #4-8
-    #8-12
-    #12-16
-    #16-20
+    combinations=combinations[18*worker_i:18*(worker_i+1)]
+
+    #36 workers every does 3 that is 108 combinations
+
+
+
+    combinations_len = len(combinations)
+    
+    #print("combinations_len",combinations_len)
+    
 
    
 
@@ -377,13 +395,13 @@ def main(filenameee,worker_i):
     
     #inicialize progress bar
     global pbar
-    pbar = tqdm.tqdm(total=108, desc="Worker "+str(worker_i), position=worker_i)
+    pbar = tqdm.tqdm(total=18, desc="Worker "+str(worker_i), position=worker_i)
     #show progress bar
     pbar.update(0)
 
     
 
-    with ThreadPoolExecutor(max_workers=32) as executor:
+    with ThreadPoolExecutor(max_workers=6) as executor:
         results = executor.map(do2, combinations)
         
 
@@ -458,7 +476,7 @@ if __name__ == '__main__':
 
     #get arguments from command line
 
-    seed(100)
+    
 
     #parser arguments
     parser = argparse.ArgumentParser(description='Process some integers.')

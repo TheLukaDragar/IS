@@ -26,8 +26,14 @@ childern=""
 
 #do not get files with hard in them
 
+#set env variable for the maze
 
-for file in $(ls mazes | grep -v hard | grep tr | grep 4); do
+export PYGAME_HIDE_SUPPORT_PROMPT=1
+
+#define int 
+declare -i i=0
+
+for file in $(ls mazes | grep -v hard  ); do
     #run the python script with anaconda python
     #/Users/carbs/miniforge3/envs/pytorch_m1/bin/python /Users/carbs/Desktop/IS/sol/test.py
 
@@ -35,6 +41,8 @@ for file in $(ls mazes | grep -v hard | grep tr | grep 4); do
     /Users/carbs/miniforge3/envs/pytorch_m1/bin/python /Users/carbs/Desktop/IS/sol/is4.py mazes/$file &
     #/Users/carbs/miniforge3/envs/ai/bin/python /Users/carbs/Desktop/IS/sol/is3.py mazes/$file &
     #/Users/carbs/miniforge3/envs/ai/bin/python /Users/carbs/Desktop/IS/sol/test.py $file &
+
+    #increment the counter
 
     child=$!
     echo "Spawned deamon with PID $child"

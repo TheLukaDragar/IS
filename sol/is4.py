@@ -17,7 +17,7 @@ class IS4:
         self.maze_start = None
         self.num_of_treasures = None
         self.points_of_treasures= set()
-        self.crossover_type = "longest_path_mix"
+        self.crossover_type = ""
         self.pbar=None
         self.maze_dict = {
             "#": 0,
@@ -938,7 +938,7 @@ class IS4:
 
 
 if __name__ == "__main__":
-    seed(100)
+    #seed(100)
 
     # simulate crossover
     # simulatecrossover()
@@ -968,6 +968,8 @@ if __name__ == "__main__":
 
         filename = sys.argv[1]
 
+        
+
     
         
 
@@ -986,8 +988,8 @@ if __name__ == "__main__":
 
     # set some default pygad parameters
     params = {
-        "num_generations": 1000,
-        "population_size": 200,
+        "num_generations": 2000,
+        "population_size": 400,
         "crossover_func": "custom",
         "mutation_func":  "custom",
         "mutation_probability": 0.05,
@@ -995,16 +997,16 @@ if __name__ == "__main__":
         "population_parents_percent":  0.20,
         # how many elite we will use for next generation (0.05 means 5%) for 200 population we will have 10 elite
         "population_keep_elite_percent": 0.01,
-        "population_func": "invalid",  # invalid, valid, valid_smart
+        "population_func": "valid_smart",  # invalid, valid, valid_smart
         "simulate_population": False,
-        "crossover_type": "min_max",
+        "crossover_type": "rand_rand",
         "show_progress": True,
         "smart": True, #if mutation is smart 
         "show_plot": True,
         "self_save_to_file": False,
         "maze_file": filename,
         "parent_selection_type": "sus",
-        "seed": 100,
+        "seed": 169,
 
 
     }

@@ -1122,7 +1122,7 @@ if __name__ == "__main__":
 
     # set some default pygad parameters
     params = {
-        "num_generations": 500,
+        "num_generations": 1000,
         "population_size": 200,
         "crossover_func": "custom",
         "mutation_func":  "custom",
@@ -1137,13 +1137,11 @@ if __name__ == "__main__":
         "crossover_type": "min_max",
         "show_progress": True,
         "smart": True,
-        "plot": False,
+        "plot": True,
         "save_to_file": True,
         "maze_file": filename,
         "parent_selection_type": "sus",
         "seed": 100,
-
-
     }
 
     maze, maze_start, maze_end, solution, solution_fitness, solution_idx = start_ga(
@@ -1154,4 +1152,4 @@ if __name__ == "__main__":
 
     # simulate best chromosome
 
-    #simulate_chromosomes([solution], draw=True)
+    simulate_chromosomes([solution], draw=True)

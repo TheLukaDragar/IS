@@ -32,7 +32,7 @@ i=0
 #define string
 filename="maze_treasure_7.txt"
 
-while [ $i -le 19 ]
+while [ $i -le 11 ]
 do
 
 
