@@ -375,6 +375,8 @@ def main(filenameee,worker_i):
 
     combinations=combinations[18*worker_i:18*(worker_i+1)]
 
+    #216
+
     #36 workers every does 3 that is 108 combinations
 
 

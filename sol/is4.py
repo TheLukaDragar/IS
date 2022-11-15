@@ -767,7 +767,7 @@ class IS4:
         # get pid
         pid = os.getpid()
 
-        #print("Starting GA a!", pid, params["maze_file"])
+        print("Starting GA a!", pid, params["maze_file"])
         # generate initial population
 
 
@@ -988,8 +988,8 @@ if __name__ == "__main__":
 
     # set some default pygad parameters
     params = {
-        "num_generations": 2000,
-        "population_size": 400,
+        "num_generations": 10,
+        "population_size": 600,
         "crossover_func": "custom",
         "mutation_func":  "custom",
         "mutation_probability": 0.05,
@@ -1003,7 +1003,7 @@ if __name__ == "__main__":
         "show_progress": True,
         "smart": True, #if mutation is smart 
         "show_plot": True,
-        "self_save_to_file": False,
+        "self_save_to_file": True,
         "maze_file": filename,
         "parent_selection_type": "sus",
         "seed": 169,

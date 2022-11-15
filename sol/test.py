@@ -189,7 +189,7 @@ def simulate_chromosomes(maze,maze_start,chromosomes, title="", auto=True, draw=
 
             for i in range(len(current_positions)):
                 # make each one smaller so we can see them
-                size = cell_size - 2 * i
+                size = cell_size - 2 * 0
                 pygame.draw.rect(screen, colors[i], (current_positions[i][1] * cell_size + offset_x, current_positions[i][0] * cell_size + offset_y, size, size))
 
             # draw crossover data
