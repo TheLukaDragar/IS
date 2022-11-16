@@ -894,7 +894,9 @@ class IS4:
             os.makedirs(dir)
 
             #save plot to file
-            plt.savefig(dir+"/plot.png")
+            if params["show_plot"]:
+                plt.savefig(dir+"/plot.png")
+            
             # close progress bar
             # save to file with name beeing filename and date
         
