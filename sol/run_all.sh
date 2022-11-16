@@ -33,7 +33,7 @@ export PYGAME_HIDE_SUPPORT_PROMPT=1
 #define int 
 declare -i i=0
 
-for file in $(ls mazes | grep maze_harder_17  ); do
+for file in $(ls mazes | grep maze_harder_0  ); do
     #run the python script with anaconda python
     #/Users/carbs/miniforge3/envs/pytorch_m1/bin/python /Users/carbs/Desktop/IS/sol/test.py
 

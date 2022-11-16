@@ -997,7 +997,7 @@ if __name__ == "__main__":
         "population_parents_percent":  0.20,
         # how many elite we will use for next generation (0.05 means 5%) for 200 population we will have 10 elite
         "population_keep_elite_percent": 0.01,
-        "population_func": "valid_smart",  # invalid, valid, valid_smart
+        "population_func": "invalid",  # invalid, valid, valid_smart
         "simulate_population": False,
         "crossover_type": "rand_rand",
         "show_progress": True,
