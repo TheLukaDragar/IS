@@ -990,8 +990,8 @@ if __name__ == "__main__":
 
     # set some default pygad parameters
     params = {
-        "num_generations": 10,
-        "population_size": 600,
+        "num_generations": 2000,
+        "population_size": 300,
         "crossover_func": "custom",
         "mutation_func":  "custom",
         "mutation_probability": 0.05,

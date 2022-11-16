@@ -33,12 +33,12 @@ export PYGAME_HIDE_SUPPORT_PROMPT=1
 #define int 
 declare -i i=0
 
-for file in $(ls mazes | grep -v hard  ); do
+for file in $(ls mazes | grep maze_harder_ | grep -E '_0.txt|_1.txt'  ); do
     #run the python script with anaconda python
     #/Users/carbs/miniforge3/envs/pytorch_m1/bin/python /Users/carbs/Desktop/IS/sol/test.py
 
     #create deamons and run the python script and redirect the output to dev/null 
-    /Users/carbs/miniforge3/envs/ai/bin/python /Users/carbs/Desktop/IS/sol/is4.py mazes/$file &
+    /usr/local/envs/ai/bin/python /content/IS/sol/is4.py mazes/$file &
     #/Users/carbs/miniforge3/envs/ai/bin/python /Users/carbs/Desktop/IS/sol/is3.py mazes/$file &
     #/Users/carbs/miniforge3/envs/ai/bin/python /Users/carbs/Desktop/IS/sol/test.py $file &
 
